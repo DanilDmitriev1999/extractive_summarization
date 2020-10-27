@@ -10,7 +10,7 @@ from pprint import pprint
 
 
 class TextRank:
-    def __init__(self, model_name:str, sentence):
+    def __init__(self, model_name:str):
         self.encoder = SentenceTransformer(model_name)
 
     def model_similarity(self, w1, w2):
@@ -31,7 +31,7 @@ class TextRank:
         # Для каждой пары предложений считаем близость
         pairs = combinations(range(n_sentences), 2)
         scores = [(i, j, self.model_similarity(sentences_words[i], sentences_words[j])) for i, j in tqdm(pairs,
-                                                                                                         total=len(pairs))]
+                                                                                                         total=len(list(pairs)))]
 
         # Строим граф с рёбрами, равными близости между предложениями
         g = nx.Graph()
