@@ -30,8 +30,7 @@ class TextRank:
 
         # Для каждой пары предложений считаем близость
         pairs = combinations(range(n_sentences), 2)
-        scores = [(i, j, self.model_similarity(sentences_words[i], sentences_words[j])) for i, j in tqdm(pairs,
-                                                                                                         total=len(list(pairs)))]
+        scores = [(i, j, self.model_similarity(sentences_words[i], sentences_words[j])) for i, j in tqdm(pairs)]
 
         # Строим граф с рёбрами, равными близости между предложениями
         g = nx.Graph()
