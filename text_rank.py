@@ -74,19 +74,24 @@ class TextRank:
     def get_summary(self, records, summary_part=0.1, lower=True):
         references = []
         predictions = []
-        # for i, record in tqdm(enumerate(records)):
-        #     if i >= nrows:
-        #         break
+        if type(records) == dict:
+            summary = records["summary"]
+            summary = summary if not lower else summary.lower()
+            references.append(summary)
 
-        summary = records["summary"]
-        summary = summary if not lower else summary.lower()
-        references.append(summary)
+            text = records["text"]
+            predicted_summary = self.gen_text_rank_summary(text, summary_part, lower)
+            predictions.append(predicted_summary)
 
-        text = records["text"]
-        predicted_summary = self.gen_text_rank_summary(text, summary_part, lower)
-        predictions.append(predicted_summary)
-
-        self.calc_scores(references, predictions, text)
+            self.calc_scores(references, predictions, text)
+        elif type(records) == str:
+            predicted_summary = self.gen_text_rank_summary(records, summary_part, lower)
+            predictions.append(predicted_summary)
+            print('Полный текст:')
+            pprint(records, width=150)
+            print('-' * 150)
+            print("TextRank summary:")
+            pprint(predictions[-1], width=150)
 
     @staticmethod
     def cosine_sim(u, v):
