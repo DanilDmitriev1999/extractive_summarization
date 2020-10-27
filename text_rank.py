@@ -4,6 +4,7 @@ from sentence_transformers import SentenceTransformer
 import numpy as np
 from scipy.linalg import norm
 from nltk.translate.bleu_score import corpus_bleu
+from tqdm import tqdm
 import razdel
 from pprint import pprint
 
@@ -11,7 +12,6 @@ from pprint import pprint
 class TextRank:
     def __init__(self, model_name:str, sentence):
         self.encoder = SentenceTransformer(model_name)
-        self.sentence = sentence
 
     def model_similarity(self, w1, w2):
         u = np.mean(self.encoder.encode([' '.join(w1)]), axis=0)
@@ -30,7 +30,8 @@ class TextRank:
 
         # Для каждой пары предложений считаем близость
         pairs = combinations(range(n_sentences), 2)
-        scores = [(i, j, self.model_similarity(sentences_words[i], sentences_words[j])) for i, j in pairs]
+        scores = [(i, j, self.model_similarity(sentences_words[i], sentences_words[j])) for i, j in tqdm(pairs,
+                                                                                                         total=len(pairs))]
 
         # Строим граф с рёбрами, равными близости между предложениями
         g = nx.Graph()
@@ -67,20 +68,20 @@ class TextRank:
         print('-' * 150)
         print("BLEU: ", corpus_bleu([[r] for r in references], predictions))
 
-    def forward(self, summary_part=0.1, lower=True, nrows=1000):
+    def get_summary(self, records, summary_part=0.1, lower=True):
         references = []
         predictions = []
-        for i, record in enumerate(self.sentence):
-            if i >= nrows:
-                break
+        # for i, record in tqdm(enumerate(records)):
+        #     if i >= nrows:
+        #         break
 
-            summary = self.sentence["summary"]
-            summary = summary if not lower else summary.lower()
-            references.append(summary)
+        summary = records["summary"]
+        summary = summary if not lower else summary.lower()
+        references.append(summary)
 
-            text = self.sentence["text"]
-            predicted_summary = self.gen_text_rank_summary(text, summary_part, lower)
-            predictions.append(predicted_summary)
+        text = records["text"]
+        predicted_summary = self.gen_text_rank_summary(text, summary_part, lower)
+        predictions.append(predicted_summary)
 
         self.calc_scores(references, predictions, text)
 
