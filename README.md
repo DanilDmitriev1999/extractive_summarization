@@ -1,7 +1,7 @@
 # Extractive summarization
 Суть проекта заключается в Extractive Summarization, на данный момент был использован 
 алгоритм TextRank и контекстные эмбединги по предложению (**sentence_transformers**). Пока 
-я только попробовал `'distilbert-multilingual-nli-stsb-quora-ranking'`. Данный подход показал
+я попробовал только `'distilbert-multilingual-nli-stsb-quora-ranking'`. Данный подход показал
 хорошее качество и отличную скорость.
 
 ## Данные
