@@ -41,7 +41,7 @@ class TextRank:
         g.add_weighted_edges_from(scores)
 
         # Считаем PageRank
-        pr = nx.pagerank(g)
+        pr = nx.pagerank(g, max_iter=600)
         result = [(i, pr[i], s) for i, s in enumerate(sentences) if i in pr]
         result.sort(key=lambda x: x[1], reverse=True)
 
