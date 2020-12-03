@@ -75,7 +75,7 @@ class TextRank:
             print('-' * 150)
             print("BLEU: ", corpus_bleu([[r] for r in references], predictions))
 
-    def get_summary(self, records, summary_part=0.1, lower=True):
+    def get_summary(self, records, summary_part=0.1, lower=True, only_blue=False):
         references = []
         predictions = []
         if type(records) == dict:
@@ -87,7 +87,7 @@ class TextRank:
             predicted_summary = self.gen_text_rank_summary(text, summary_part, lower)
             predictions.append(predicted_summary)
 
-            self.calc_scores(references, predictions, text)
+            self.calc_scores(references, predictions, text, only_blue)
         elif type(records) == str:
             predicted_summary = self.gen_text_rank_summary(records, summary_part, lower)
             predictions.append(predicted_summary)

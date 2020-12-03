@@ -33,7 +33,7 @@ class LexRank:
             [sentences[idx].strip() for idx in most_central_sentence_indices[0:n_sentences_summary]])
         return predicted_summary
 
-    def get_summary(self, records, n_sentences_summary=3, show_full_text=True):
+    def get_summary(self, records, n_sentences_summary=3, show_full_text=True, only_blue=False):
         references = []
         predictions = []
 
@@ -45,7 +45,7 @@ class LexRank:
             predicted_summary = self.get_lexrank_summary(text, n_sentences_summary)
             predictions.append(predicted_summary)
 
-            self.calc_scores(references, predictions, text)
+            self.calc_scores(references, predictions, text, only_blue)
         elif type(records) == str:
             predicted_summary = self.get_lexrank_summary(records, n_sentences_summary)
             predictions.append(predicted_summary)
