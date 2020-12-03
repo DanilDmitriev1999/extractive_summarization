@@ -87,7 +87,10 @@ class TextRank:
             predicted_summary = self.gen_text_rank_summary(text, summary_part, lower)
             predictions.append(predicted_summary)
 
-            self.calc_scores(references, predictions, text, only_blue)
+            if only_blue:
+                return self.calc_scores(references, predictions, text, only_blue)
+            else:
+                self.calc_scores(references, predictions, text, only_blue)
         elif type(records) == str:
             predicted_summary = self.gen_text_rank_summary(records, summary_part, lower)
             predictions.append(predicted_summary)

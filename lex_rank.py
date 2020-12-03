@@ -45,7 +45,10 @@ class LexRank:
             predicted_summary = self.get_lexrank_summary(text, n_sentences_summary)
             predictions.append(predicted_summary)
 
-            self.calc_scores(references, predictions, text, only_blue)
+            if only_blue:
+                return self.calc_scores(references, predictions, text, only_blue)
+            else:
+                self.calc_scores(references, predictions, text, only_blue)
         elif type(records) == str:
             predicted_summary = self.get_lexrank_summary(records, n_sentences_summary)
             predictions.append(predicted_summary)
