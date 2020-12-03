@@ -97,3 +97,6 @@ class TextRank:
     @staticmethod
     def cosine_sim(u, v):
         return np.dot(u, v) / (norm(u) * norm(v))
+
+if __name__ == '__main__':
+    pass
