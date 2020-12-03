@@ -53,7 +53,7 @@ class LexRank:
                 print('Полный текст:')
                 pprint(records, width=150)
                 print('-' * 150)
-            print("TextRank summary:")
+            print("LextRank summary:")
             pprint(predictions[-1], width=150)
 
     def degree_centrality_scores(self, similar_matrix, increase_power=True):
@@ -126,7 +126,7 @@ class LexRank:
         print("Исходное summary:")
         pprint(references[-1], width=150)
         print('-' * 150)
-        print("TextRank summary:")
+        print("LexRank summary:")
         pprint(predictions[-1], width=150)
         print('-' * 150)
         print("BLEU: ", corpus_bleu([[r] for r in references], predictions))
