@@ -1,8 +1,9 @@
 from itertools import combinations
 import networkx as nx
-from sentence_transformers import SentenceTransformer
+from sentence_transformers import SentenceTransformer, util
 import numpy as np
 from scipy.linalg import norm
+from scipy.sparse.csgraph import connected_components
 from nltk.translate.bleu_score import corpus_bleu
 from tqdm import tqdm
 import razdel
