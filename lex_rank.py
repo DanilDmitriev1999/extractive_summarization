@@ -117,19 +117,22 @@ class LexRank:
         return similar_matrix / row_sum
 
     @staticmethod
-    def calc_scores(references, predictions, text):
-        print()
-        print("Count:", len(predictions))
-        print('Полный текст:')
-        pprint(text, width=150)
-        print('-' * 150)
-        print("Исходное summary:")
-        pprint(references[-1], width=150)
-        print('-' * 150)
-        print("LexRank summary:")
-        pprint(predictions[-1], width=150)
-        print('-' * 150)
-        print("BLEU: ", corpus_bleu([[r] for r in references], predictions))
+    def calc_scores(references, predictions, text, only_blue=False):
+        if only_blue:
+            return corpus_bleu([[r] for r in references], predictions)
+        else:
+            print()
+            print("Count:", len(predictions))
+            print('Полный текст:')
+            pprint(text, width=150)
+            print('-' * 150)
+            print("Исходное summary:")
+            pprint(references[-1], width=150)
+            print('-' * 150)
+            print("LexRank summary:")
+            pprint(predictions[-1], width=150)
+            print('-' * 150)
+            print("BLEU: ", corpus_bleu([[r] for r in references], predictions))
 
 if __name__ == '__main__':
     pass
