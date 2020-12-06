@@ -1,8 +1,7 @@
-# Extractive summarization
-Суть проекта заключается в Extractive Summarization, на данный момент был использован 
-алгоритм TextRank и контекстные эмбединги по предложению (**sentence_transformers**). Пока 
-я попробовал только `'distilbert-multilingual-nli-stsb-quora-ranking'`. Данный подход показал
-хорошее качество и отличную скорость.
+# Summarization
+Суть проекта заключается в Extractive Summarization, был использован 
+алгоритм TextRank, LexRank и контекстные эмбединги по предложению (**sentence_transformers**). 
+Основной ноутбук [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1b-sg2SfnlSLUReyNDVnqtfpYFI_jf3i0?usp=sharing)
 
 ## Данные
 Я использовал новостные данные и скачал их по этой [ссылке](https://www.dropbox.com/s/43l702z5a5i2w8j/gazeta_train.txt): 
@@ -23,15 +22,35 @@
 
 Полный текст можете посмотреть в файле `text.txt`
 
+## Сравнение эмбедингов
+Сравнение на первых 100 предложениях. Данное сравнение было реализовано в ноутбуке *FindBestModel.ipynb* [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1w-MUiMEaG9mBSc6LIRqJXmFPkjmarM8M?usp=sharing)
+### TextRank
+
+| Модель  | median BLUE  | Time |
+|:------------- |:---------------:| -------------:|
+| USE      | 0.29 |     6:28 |
+| XLM-R      | 0.27        |         11:29   |
+| DistilBERT | 0.25       |        6:10 |
+
+### LexRank
+| Модель  | median BLUE  | Time |
+|:------------- |:---------------:| -------------:|
+| USE      | 0.28 |     6:36 |
+| XLM-R      | 0.27        |         11:09   |
+| DistilBERT | 0.26       |        6:35 |
+
+
 ## Проблемы
 1.  Я использую перебор всех предложений, это кажется избыточным вариантом.
 2.  В summary могут появиться предложения, которые ссылаются на те предложения, 
 которые в summary не попали.
-3.  Сложность оценивания модели: иногда **textrank summary** не совпадает с исходным, но все 
+3.  Сложность оценивания модели: иногда **summary** не совпадает с исходным, но все 
 равно хорошо описывает идею текста.
 
 ## TO-DO
-- [ ] Попробовать другие контекстные эмбединги.
-- [ ] Протестировать модель на научных статьях.
+- [x] Попробовать другие контекстные эмбединги.
+- [x] Попробовать другие методы extractive summarization.
+- [x] Протестировать T5 для Abstractive summarization
+- [x] Сравнить результаты
 - [ ] Уйти от перебора всех предложений.
-- [ ] Попробовать другие методы extractive summarization.
+
