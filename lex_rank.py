@@ -19,10 +19,6 @@ class LexRank:
         sentences = [sentence.text for sentence in razdel.sentenize(text)]
         n_sentences = len(sentences)
 
-        # Токенизируем предложения
-        sentences_words = [[token.text for token in razdel.tokenize(sentence)] for
-                           sentence in sentences]
-
         embeddings = self.encoder.encode(sentences, convert_to_tensor=True)
         cos_scores = util.pytorch_cos_sim(embeddings, embeddings).numpy()
 
