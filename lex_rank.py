@@ -20,7 +20,7 @@ class LexRank:
         n_sentences = len(sentences)
 
         embeddings = self.encoder.encode(sentences, convert_to_tensor=True)
-        cos_scores = util.pytorch_cos_sim(embeddings, embeddings).numpy()
+        cos_scores = util.pytorch_cos_sim(embeddings, embeddings).detach().cpu().numpy()
 
         centrality_scores = self.degree_centrality_scores(cos_scores)
 
